@@ -7,12 +7,12 @@
 </head>
 <body>
 
-<!-- Sakura petals -->
+<!-- Sakura background -->
 <div id="sakura-container"></div>
 
 <div class="card">
 
-  <!-- GIF BOX -->
+  <!-- GIF ABOVE QUESTION -->
   <div id="gifBox">
     <img id="questionGif" alt="gif">
   </div>
@@ -23,13 +23,19 @@
   <div id="textBox" style="display:none;">
     <p class="hint">Write honestly (min 15 characters, English only)</p>
 
-    <textarea id="answer" rows="4" oninput="updateCounter()"></textarea>
+    <textarea
+      id="answer"
+      rows="4"
+      oninput="updateCounter()"
+    ></textarea>
 
     <div class="counter">
       <span id="charCount">0</span> / 15 characters
     </div>
 
-    <button id="submitBtn" onclick="submitText()" disabled>Submit</button>
+    <button id="submitBtn" onclick="submitText()" disabled>
+      Submit
+    </button>
   </div>
 
   <!-- OPTIONS -->
@@ -41,16 +47,15 @@
   <button id="nextBtn" onclick="nextQuestion()" style="display:none;">
     Next
   </button>
-
 </div>
 
-<!-- Hidden YouTube Music -->
+<!-- Hidden YouTube Background Music -->
 <iframe
   id="ytPlayer"
   width="0"
   height="0"
   style="display:none;"
-  src="https://www.youtube.com/embed/8kfP22meDL0?enablejsapi=1&loop=1&playlist=8kfP22meDL0&controls=0&mute=1"
+  src="https://www.youtube.com/embed/yjuImlE3-LQ?enablejsapi=1&loop=1&playlist=yjuImlE3-LQ&controls=0&mute=1"
   frameborder="0"
   allow="autoplay">
 </iframe>
