@@ -25,12 +25,15 @@ const gifs = [
 
 let index = 0;
 
+// Elements
 const questionEl = document.getElementById("question");
+const hintEl = document.getElementById("hint");
 const answerEl = document.getElementById("answer");
 const submitBtn = document.getElementById("submitBtn");
-const nextBtn = document.getElementById("nextBtn");
 const rewardEl = document.getElementById("reward");
+const counterEl = document.getElementById("counter");
 const charCount = document.getElementById("charCount");
+const optionsBox = document.getElementById("optionsBox");
 const gifEl = document.getElementById("questionGif");
 
 function loadQuestion() {
@@ -38,53 +41,73 @@ function loadQuestion() {
 
   questionEl.textContent = q.text;
   rewardEl.textContent = "";
-  nextBtn.classList.add("hidden");
+  optionsBox.innerHTML = "";
 
   gifEl.src = gifs[Math.floor(Math.random() * gifs.length)];
 
+  // RESET EVERYTHING
   answerEl.value = "";
   charCount.textContent = "0";
   submitBtn.disabled = true;
-  answerEl.style.display = "block";
-  submitBtn.style.display = "block";
 
-  document.querySelectorAll(".option").forEach(o => o.remove());
+  if (q.type === "text") {
+    // TEXT QUESTION
+    hintEl.textContent = "Write honestly (min 15 characters, English only)";
+    hintEl.style.display = "block";
 
-  if (q.type === "options") {
+    answerEl.style.display = "block";
+    counterEl.style.display = "block";
+    submitBtn.style.display = "inline-block";
+    optionsBox.style.display = "none";
+  } 
+  else {
+    // OPTIONS QUESTION
+    hintEl.style.display = "none";
     answerEl.style.display = "none";
+    counterEl.style.display = "none";
     submitBtn.style.display = "none";
+    optionsBox.style.display = "block";
 
-    q.options.forEach(opt => {
+    q.options.forEach(option => {
       const btn = document.createElement("button");
       btn.className = "option";
-      btn.textContent = opt;
+      btn.textContent = option;
+
       btn.onclick = () => {
         rewardEl.textContent = q.reward;
-        nextBtn.classList.remove("hidden");
+
+        // small delay for sweetness, then move on
+        setTimeout(() => {
+          index++;
+          if (index >= questions.length) {
+            window.location.href = "proposal.html";
+          } else {
+            loadQuestion();
+          }
+        }, 700);
       };
-      document.querySelector(".quiz-card").appendChild(btn);
+
+      optionsBox.appendChild(btn);
     });
   }
 }
 
+// TEXT INPUT COUNTER
 answerEl.addEventListener("input", () => {
   const len = answerEl.value.trim().length;
   charCount.textContent = len;
   submitBtn.disabled = len < 15;
 });
 
+// SUBMIT TEXT ANSWER
 submitBtn.addEventListener("click", () => {
   rewardEl.textContent = questions[index].reward;
-  nextBtn.classList.remove("hidden");
-});
 
-nextBtn.addEventListener("click", () => {
-  index++;
-  if (index >= questions.length) {
-    window.location.href = "proposal.html";
-  } else {
+  setTimeout(() => {
+    index++;
     loadQuestion();
-  }
+  }, 800);
 });
 
+// INIT
 loadQuestion();
