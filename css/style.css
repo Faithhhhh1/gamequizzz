@@ -1,49 +1,55 @@
+/* ===== GLOBAL ===== */
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: "Segoe UI", sans-serif;
   background: radial-gradient(circle at top, #0b132b, #020617);
   color: white;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-/* Card */
+/* ===== CARD ===== */
 .card {
   position: relative;
   z-index: 2;
+  width: 100%;
   max-width: 520px;
-  margin: 90px auto;
-  padding: 30px;
-  background: rgba(0,0,0,0.6);
+  padding: 32px;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 22px;
-  box-shadow: 0 0 40px rgba(255,255,255,0.06);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.06);
 }
 
-/* GIF */
+/* ===== GIF ABOVE QUESTION ===== */
 #gifBox {
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 #gifBox img {
   max-width: 130px;
-  border-radius: 14px;
+  border-radius: 16px;
   animation: floatGif 4s ease-in-out infinite;
 }
 
 @keyframes floatGif {
   0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-8px); }
   100% { transform: translateY(0); }
 }
 
-/* Textarea */
+/* ===== TEXT AREA ===== */
 textarea {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   font-size: 15px;
-  border-radius: 12px;
-  resize: none;
+  border-radius: 14px;
   border: none;
+  resize: none;
+  outline: none;
 }
 
 .counter {
@@ -52,13 +58,14 @@ textarea {
   opacity: 0.8;
 }
 
+/* ===== BUTTON ===== */
 button {
   background: #ff4d6d;
   border: none;
   color: white;
-  padding: 10px 20px;
-  border-radius: 12px;
-  margin-top: 12px;
+  padding: 10px 22px;
+  border-radius: 14px;
+  margin-top: 14px;
   cursor: pointer;
 }
 
@@ -67,20 +74,20 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Options */
+/* ===== OPTIONS ===== */
 .option {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   padding: 12px;
-  border-radius: 12px;
+  border-radius: 14px;
   margin-top: 10px;
   cursor: pointer;
 }
 
 .option:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 
-/* Messages */
+/* ===== TEXT FEEDBACK ===== */
 .error {
   color: #ff6b6b;
   margin-top: 10px;
@@ -91,7 +98,7 @@ button:disabled {
   margin-top: 10px;
 }
 
-/* Sakura */
+/* ===== SAKURA BACKGROUND ===== */
 #sakura-container {
   position: fixed;
   inset: 0;
@@ -102,16 +109,20 @@ button:disabled {
 .sakura {
   position: absolute;
   top: -10%;
-  width: 18px;
-  height: 18px;
-  background-image: url("../assets/assets1.gif");
-  background-size: cover;
-  opacity: 0.7;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #ffd1dc, #ff9eb5);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  opacity: 0.8;
   animation: fall linear infinite;
 }
 
 @keyframes fall {
   to {
-    transform: translateY(120vh) translateX(200px) rotate(360deg);
+    transform:
+      translateY(120vh)
+      translateX(120px)
+      rotate(360deg);
   }
 }
