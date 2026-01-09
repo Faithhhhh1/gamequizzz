@@ -33,19 +33,28 @@ const gifs = [
 ];
 
 let index = 0;
+let musicStarted = false;
 
-/******** MUSIC ********/
-function playYouTubeMusic() {
+/******** MUSIC (PLAY ONCE) ********/
+function playYouTubeMusicOnce() {
+  if (musicStarted) return;
+  musicStarted = true;
+
   const iframe = document.getElementById("ytPlayer");
   if (!iframe) return;
 
   iframe.contentWindow.postMessage(
-    JSON.stringify({ event: "command", func: "playVideo", args: [] }),
+    JSON.stringify({ event: "command", func: "seekTo", args: [10, true] }),
     "*"
   );
 
   iframe.contentWindow.postMessage(
-    JSON.stringify({ event: "command", func: "unMute", args: [] }),
+    JSON.stringify({ event: "command", func: "playVideo" }),
+    "*"
+  );
+
+  iframe.contentWindow.postMessage(
+    JSON.stringify({ event: "command", func: "unMute" }),
     "*"
   );
 }
@@ -55,32 +64,10 @@ function setRandomGif() {
   const img = document.getElementById("questionGif");
   if (!img) return;
 
-  const src = gifs[Math.floor(Math.random() * gifs.length)];
   img.style.display = "none";
-  img.src = src;
-
-  img.onload = () => {
-    img.style.display = "block";
-  };
+  img.src = gifs[Math.floor(Math.random() * gifs.length)];
+  img.onload = () => (img.style.display = "block");
 }
-
-/******** SAKURA GENERATOR ********/
-function createSakura() {
-  const container = document.getElementById("sakura-container");
-  if (!container) return;
-
-  const petal = document.createElement("div");
-  petal.className = "sakura";
-  petal.style.left = Math.random() * 100 + "vw";
-  petal.style.animationDuration = 8 + Math.random() * 6 + "s";
-  petal.style.opacity = Math.random() * 0.5 + 0.3;
-
-  container.appendChild(petal);
-
-  setTimeout(() => petal.remove(), 15000);
-}
-
-setInterval(createSakura, 350);
 
 /******** LOAD QUESTION ********/
 function loadQuestion() {
@@ -88,7 +75,6 @@ function loadQuestion() {
 
   document.getElementById("question").innerText = q.text;
   document.getElementById("reward").innerText = "";
-  document.getElementById("error").innerText = "";
   document.getElementById("nextBtn").style.display = "none";
   document.getElementById("optionsBox").innerHTML = "";
   document.getElementById("textBox").style.display = "none";
@@ -96,8 +82,9 @@ function loadQuestion() {
   setRandomGif();
 
   if (q.type === "text") {
-    document.getElementById("answer").value = "";
-    document.getElementById("charCount").innerText = "0";
+    const input = document.getElementById("answer");
+    input.value = "";
+    document.getElementById("charCount").innerText = "0 / 15";
     document.getElementById("submitBtn").disabled = true;
     document.getElementById("textBox").style.display = "block";
   } else {
@@ -106,7 +93,7 @@ function loadQuestion() {
       div.className = "option";
       div.innerText = opt;
       div.onclick = () => {
-        playYouTubeMusic();
+        playYouTubeMusicOnce();
         document.getElementById("reward").innerText = q.reward;
         document.getElementById("nextBtn").style.display = "block";
       };
@@ -115,16 +102,20 @@ function loadQuestion() {
   }
 }
 
-/******** COUNTER ********/
+/******** COUNTER (FIXED) ********/
 function updateCounter() {
-  const count = document.getElementById("answer").value.length;
-  document.getElementById("charCount").innerText = count;
+  const input = document.getElementById("answer");
+  let value = input.value.replace(/[^a-zA-Z\s]/g, "");
+  input.value = value;
+
+  const count = value.trim().length;
+  document.getElementById("charCount").innerText = `${count} / 15`;
   document.getElementById("submitBtn").disabled = count < 15;
 }
 
 /******** SUBMIT ********/
 function submitText() {
-  playYouTubeMusic();
+  playYouTubeMusicOnce();
   document.getElementById("reward").innerText = questions[index].reward;
   document.getElementById("nextBtn").style.display = "block";
 }
@@ -139,4 +130,21 @@ function nextQuestion() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", loadQuestion);
+/******** SAKURA (DOM SAFE) ********/
+document.addEventListener("DOMContentLoaded", () => {
+  const sakuraContainer = document.getElementById("sakura-container");
+  if (sakuraContainer) {
+    for (let i = 0; i < 40; i++) {
+      const petal = document.createElement("div");
+      petal.className = "sakura";
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDuration = 8 + Math.random() * 10 + "s";
+      petal.style.animationDelay = Math.random() * 5 + "s";
+      petal.style.transform = `scale(${0.6 + Math.random()})`;
+      sakuraContainer.appendChild(petal);
+    }
+  }
+
+  loadQuestion();
+});
+
