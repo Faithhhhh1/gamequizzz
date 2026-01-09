@@ -1,80 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Just Us 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <title>Just Us 💞</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-  <!-- 🎵 Hidden YouTube Player -->
-  <div id="yt-player"></div>
+<!-- 🌌 Night background -->
+<div id="night-bg"></div>
 
-  <!-- 🌌 Stars Background -->
-  <div class="stars"></div>
-  <div class="stars2"></div>
-  <div class="stars3"></div>
+<!-- 🌸 Sakura container -->
+<div id="sakura-container"></div>
 
-  <!-- 🌸 Sakura Container -->
-  <div id="sakura-container"></div>
+<!-- 🎵 Hidden YouTube Player -->
+<iframe
+  id="ytPlayer"
+  src="https://www.youtube.com/embed/yjuImlE3-LQ?enablejsapi=1&mute=1&controls=0&start=10"
+  allow="autoplay"
+  style="display:none">
+</iframe>
 
-  <!-- 💖 CENTER CONTENT -->
-  <div class="center">
-    <div class="card">
+<div class="quiz-wrapper">
+  <div class="quiz-card">
 
-      <!-- 🖼️ GIF -->
-      <img src="assets/assets1.gif" alt="cute gif" />
+    <!-- GIF -->
+    <img id="questionGif" class="question-gif" />
 
-      <!-- ❓ QUESTION -->
-      <h2>
-        What was the first thing about me that made you feel safe talking to me?
-      </h2>
+    <!-- QUESTION -->
+    <h2 id="question"></h2>
+    <p class="subtitle">Write honestly (min 15 characters, English only)</p>
 
-      <p>
-        Write honestly (min 15 characters, English only)
-      </p>
-
-      <!-- ✍️ TEXT ANSWER -->
+    <!-- TEXT ANSWER -->
+    <div id="textBox">
       <textarea
         id="answer"
-        placeholder="Write your answer here..."
+        placeholder="Write here..."
+        oninput="updateCounter()"
       ></textarea>
 
-      <!-- 🔢 COUNTER -->
-      <div class="counter" id="counter">0 / 15 characters</div>
+      <div id="charCount">0 / 15 characters</div>
 
-      <!-- ✅ SUBMIT -->
-      <button id="submit" disabled>Submit</button>
-
-      <!-- 💬 FEEDBACK -->
-      <p id="feedback" style="margin-top:10px;"></p>
-
+      <button
+        id="submitBtn"
+        class="btn-primary"
+        onclick="submitText()"
+        disabled
+      >
+        Submit
+      </button>
     </div>
+
+    <!-- OPTIONS -->
+    <div id="optionsBox"></div>
+
+    <!-- ERROR / REWARD -->
+    <p id="error" class="error"></p>
+    <p id="reward" class="reward"></p>
+
+    <!-- NEXT -->
+    <button id="nextBtn" class="btn-primary" onclick="nextQuestion()">
+      Next
+    </button>
+
   </div>
+</div>
 
-  <!-- 🎶 MUSIC -->
-  <script src="js/music.js"></script>
-
-  <!-- 🧠 QUIZ LOGIC -->
-  <script src="js/quiz.js"></script>
-
-  <!-- 🌸 Sakura Generator -->
-  <script>
-    const sakuraContainer = document.getElementById("sakura-container");
-
-    for (let i = 0; i < 30; i++) {
-      const petal = document.createElement("div");
-      petal.className = "sakura";
-      petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDuration = 6 + Math.random() * 8 + "s";
-      petal.style.opacity = Math.random();
-      sakuraContainer.appendChild(petal);
-    }
-  </script>
-
+<script src="js/quiz.js"></script>
 </body>
 </html>
