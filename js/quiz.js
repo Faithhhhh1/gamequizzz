@@ -1,21 +1,24 @@
-/***********************
+/*************************
  * QUESTIONS
- ***********************/
+ *************************/
 const questions = [
   {
     text: "What was the first thing about me that made you feel safe talking to me?",
     type: "text",
-    reward: "Reading that made me smile ❤️"
+    reward: "Reading that made me smile ❤️",
+    keywords: ["safe", "listen", "trust", "comfort", "calm", "understand"]
   },
   {
     text: "What time of day do you feel most connected to me?",
     type: "text",
-    reward: "I love knowing that 🥰"
+    reward: "I love knowing that 🥰",
+    keywords: ["night", "morning", "late", "time", "talk", "connected"]
   },
   {
     text: "What’s one habit of mine you secretly find cute?",
     type: "text",
-    reward: "That’s adorable 😌"
+    reward: "That’s adorable 😌",
+    keywords: ["habit", "cute", "smile", "small", "thing"]
   },
   {
     text: "What’s your favorite version of me?",
@@ -28,21 +31,26 @@ const questions = [
     ],
     reward: "I love that version too 💖"
   }
-  // 👉 ADD THE REST OF YOUR QUESTIONS HERE
+  // ➕ add remaining questions here
 ];
 
-/***********************
+/*************************
  * STATE
- ***********************/
+ *************************/
 let index = 0;
 
-/***********************
+/*************************
  * VALIDATION DATA
- ***********************/
+ *************************/
 const blocked = [
   "pta nhi", "pata nahi", "idk", "i don't know",
   "yaad nahi", "mmmm", "hmm", "nothing",
   "no idea", "dont know", "don't know"
+];
+
+const cheatWords = [
+  "20", "ok", "okay", "hogya", "ho gaya",
+  "done", "complete", "completed", "finish"
 ];
 
 const hindiRegex = /[\u0900-\u097F]/;
@@ -51,12 +59,24 @@ const commonWords = [
   "i","you","me","we","us","feel","felt","safe","talk",
   "when","because","your","my","with","love","care",
   "time","first","made","thing","moment","always",
-  "talking","connected","close","happy"
+  "listen","listened","talking","connected","close"
 ];
 
-/***********************
- * HELPERS
- ***********************/
+/*************************
+ * HELPER FUNCTIONS
+ *************************/
+function hasSentenceFlow(text) {
+  return text.trim().split(/\s+/).length >= 5;
+}
+
+function hasEnoughWords(text) {
+  const words = text
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(w => w.length >= 3);
+  return words.length >= 6;
+}
+
 function hasMeaningfulWords(text) {
   const lower = text.toLowerCase();
   let count = 0;
@@ -73,8 +93,9 @@ function hasMeaningfulWords(text) {
   return count >= 2;
 }
 
-function hasSentenceFlow(text) {
-  return text.trim().split(/\s+/).length >= 5;
+function containsCheatWords(text) {
+  const lower = text.toLowerCase();
+  return cheatWords.some(word => lower.includes(` ${word}`));
 }
 
 function looksLikeGibberish(text) {
@@ -89,11 +110,30 @@ function looksLikeGibberish(text) {
   return false;
 }
 
-/***********************
- * UI FUNCTIONS
- ***********************/
+/* 🔑 QUESTION-RELEVANCE CHECK */
+function isRelatedToQuestion(answer, keywords) {
+  if (!keywords || keywords.length === 0) return true;
+
+  const lower = answer.toLowerCase();
+  let matches = 0;
+
+  for (let key of keywords) {
+    if (lower.includes(key)) {
+      matches++;
+    }
+  }
+  return matches >= 2; // gentle relevance check
+}
+
+/*************************
+ * UI HELPERS
+ *************************/
 function showError(msg) {
-  document.getElementById("error").innerText = msg;
+  const err = document.getElementById("error");
+  err.innerText = msg;
+  err.style.animation = "none";
+  err.offsetHeight;
+  err.style.animation = null;
 }
 
 function showReward(text) {
@@ -101,6 +141,9 @@ function showReward(text) {
   document.getElementById("nextBtn").style.display = "block";
 }
 
+/*************************
+ * LOAD QUESTION
+ *************************/
 function loadQuestion() {
   const q = questions[index];
 
@@ -114,6 +157,8 @@ function loadQuestion() {
 
   if (q.type === "text") {
     document.getElementById("answer").value = "";
+    document.getElementById("charCount").innerText = "0";
+    document.getElementById("submitBtn").disabled = true;
     document.getElementById("textBox").style.display = "block";
   } else {
     q.options.forEach(opt => {
@@ -126,12 +171,24 @@ function loadQuestion() {
   }
 }
 
-/***********************
+/*************************
+ * CHARACTER COUNTER
+ *************************/
+function updateCounter() {
+  const textarea = document.getElementById("answer");
+  const count = textarea.value.length;
+
+  document.getElementById("charCount").innerText = count;
+  document.getElementById("submitBtn").disabled = count < 20;
+}
+
+/*************************
  * SUBMIT TEXT ANSWER
- ***********************/
+ *************************/
 function submitText() {
   const answer = document.getElementById("answer").value.trim();
   const lower = answer.toLowerCase();
+  const q = questions[index];
 
   if (answer.length < 20)
     return showError("Please write at least 20 characters.");
@@ -144,23 +201,32 @@ function submitText() {
       return showError("Please write a proper answer from your heart ❤️");
   }
 
+  if (containsCheatWords(answer))
+    return showError("Please write a real answer, not shortcuts 😊");
+
   if (!hasSentenceFlow(answer))
-    return showError("Please write a meaningful sentence 😊");
+    return showError("Please write a complete sentence 😊");
+
+  if (!hasEnoughWords(answer))
+    return showError("Please write a more detailed answer ❤️");
 
   if (!hasMeaningfulWords(answer))
     return showError("Please write something meaningful ❤️");
 
   if (looksLikeGibberish(answer))
-    return showError("That doesn’t look like a real answer. Try again 🙂");
+    return showError("That doesn’t look like a real answer 🙂");
+
+  if (!isRelatedToQuestion(answer, q.keywords))
+    return showError("Try answering related to the question 😊");
 
   // ✅ VALID ANSWER
   localStorage.setItem(`answer_${index}`, answer);
-  showReward(questions[index].reward);
+  showReward(q.reward);
 }
 
-/***********************
+/*************************
  * NEXT QUESTION
- ***********************/
+ *************************/
 function nextQuestion() {
   index++;
   if (index >= questions.length) {
@@ -170,7 +236,7 @@ function nextQuestion() {
   }
 }
 
-/***********************
+/*************************
  * START
- ***********************/
+ *************************/
 loadQuestion();
