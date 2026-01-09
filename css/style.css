@@ -1,128 +1,82 @@
-/* ===== GLOBAL ===== */
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #0b132b, #020617);
+  background: radial-gradient(circle at top, #0b1a33, #020814);
   color: white;
   overflow: hidden;
 }
 
-/* ===== CARD ===== */
+/* CENTER */
+.center {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD */
 .card {
-  position: relative;
-  z-index: 2;
-  width: 100%;
+  background: rgba(0,0,0,0.55);
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
   max-width: 520px;
-  padding: 32px;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 22px;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.06);
-}
-
-/* ===== GIF ABOVE QUESTION ===== */
-#gifBox {
   text-align: center;
-  margin-bottom: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
 }
 
-#gifBox img {
-  max-width: 130px;
-  border-radius: 16px;
-  animation: floatGif 4s ease-in-out infinite;
+/* BUTTONS */
+button {
+  padding: 12px 26px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-@keyframes floatGif {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+.btn-primary {
+  background: #ff4d6d;
+  color: white;
 }
 
-/* ===== TEXT AREA ===== */
+.btn-secondary {
+  background: #333;
+  color: white;
+}
+
 textarea {
   width: 100%;
-  padding: 14px;
-  font-size: 15px;
-  border-radius: 14px;
-  border: none;
-  resize: none;
-  outline: none;
-}
-
-.counter {
-  margin-top: 6px;
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-/* ===== BUTTON ===== */
-button {
-  background: #ff4d6d;
-  border: none;
-  color: white;
-  padding: 10px 22px;
-  border-radius: 14px;
-  margin-top: 14px;
-  cursor: pointer;
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* ===== OPTIONS ===== */
-.option {
-  background: rgba(255, 255, 255, 0.08);
+  height: 120px;
+  border-radius: 12px;
   padding: 12px;
-  border-radius: 14px;
-  margin-top: 10px;
-  cursor: pointer;
+  border: none;
+  margin-top: 15px;
 }
 
-.option:hover {
-  background: rgba(255, 255, 255, 0.15);
+/* GIF */
+.gif {
+  width: 90px;
+  margin-bottom: 15px;
 }
 
-/* ===== TEXT FEEDBACK ===== */
-.error {
-  color: #ff6b6b;
-  margin-top: 10px;
-}
-
-.reward {
-  color: #4ade80;
-  margin-top: 10px;
-}
-
-/* ===== SAKURA BACKGROUND ===== */
-#sakura-container {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
+/* SAKURA */
 .sakura {
   position: absolute;
-  top: -10%;
-  width: 10px;
-  height: 10px;
-  background: linear-gradient(135deg, #ffd1dc, #ff9eb5);
-  border-radius: 50% 50% 50% 0;
-  transform: rotate(45deg);
-  opacity: 0.8;
+  top: -50px;
+  width: 20px;
+  height: 20px;
+  background: url("../assets/sakura.png") no-repeat center/contain;
   animation: fall linear infinite;
+  opacity: .8;
 }
 
 @keyframes fall {
   to {
-    transform:
-      translateY(120vh)
-      translateX(120px)
-      rotate(360deg);
+    transform: translateY(110vh) rotate(360deg);
   }
 }
