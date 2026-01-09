@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Just Us ❤️</title>
+  <meta charset="UTF-8">
+  <title>You Are Mine ❤️</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-
-<div id="yt-player"></div>
+<body class="night">
 
 <div class="center">
   <div class="card">
@@ -14,139 +13,6 @@
     <p>And I choose you. Every single day.</p>
   </div>
 </div>
-
-<script src="js/music.js"></script>
-</body>
-</html>
-
-    .container {
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
-    }
-
-    p {
-      opacity: 0.85;
-      margin-bottom: 30px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    button {
-      padding: 12px 26px;
-      font-size: 16px;
-      border-radius: 14px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .yes {
-      background: #ff4d6d;
-      color: white;
-    }
-
-    .no {
-      background: rgba(255,255,255,0.15);
-      color: white;
-    }
-
-    /* Popup */
-    .popup {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
-
-    .popup-box {
-      background: #111;
-      padding: 30px;
-      border-radius: 18px;
-      text-align: center;
-      animation: pop 0.3s ease;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-  </style>
-</head>
-
-<body onclick="startMusic()">
-
-  <div class="container">
-    <h1>I Love You ❤️</h1>
-    <p>Will you be mine?</p>
-
-    <div class="buttons">
-      <button class="yes" onclick="yesClicked(event)">YES</button>
-      <button class="no" onclick="noClicked(event)">NO</button>
-    </div>
-  </div>
-
-  <!-- Angry Popup -->
-  <div class="popup" id="popup">
-    <div class="popup-box">
-      <h2>How dare you say NO 😡</h2>
-      <p>I’m angry now.</p>
-      <button class="yes" onclick="closePopup()">Okay sorry 😭</button>
-    </div>
-  </div>
-
-  <!-- Hidden Music -->
-  <iframe
-    id="ytPlayer"
-    width="0"
-    height="0"
-    style="display:none;"
-    src="https://www.youtube.com/embed/yjuImlE3-LQ?enablejsapi=1&loop=1&playlist=yjuImlE3-LQ&controls=0&mute=1"
-    frameborder="0"
-    allow="autoplay">
-  </iframe>
-
-  <script>
-    let musicStarted = false;
-
-    function startMusic() {
-      if (musicStarted) return;
-      musicStarted = true;
-
-      const iframe = document.getElementById("ytPlayer");
-      iframe.contentWindow.postMessage(
-        JSON.stringify({ event: "command", func: "playVideo", args: [] }),
-        "*"
-      );
-      iframe.contentWindow.postMessage(
-        JSON.stringify({ event: "command", func: "unMute", args: [] }),
-        "*"
-      );
-    }
-
-    function yesClicked(e) {
-      e.stopPropagation();
-      alert("You just made me the happiest person alive ❤️");
-    }
-
-    function noClicked(e) {
-      e.stopPropagation();
-      document.getElementById("popup").style.display = "flex";
-    }
-
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
-  </script>
 
 </body>
 </html>
