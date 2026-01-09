@@ -6,13 +6,13 @@ const questions = [
     text: "What was the first thing about me that made you feel safe talking to me?",
     type: "text",
     reward: "Reading that made me smile ❤️",
-    keywords: ["safe", "listen", "trust", "comfort", "calm"]
+    keywords: ["safe", "listen", "trust", "comfort", "calm", "favorite"]
   },
   {
     text: "What time of day do you feel most connected to me?",
     type: "text",
     reward: "I love knowing that 🥰",
-    keywords: ["night", "morning", "late", "time", "talk"]
+    keywords: ["night", "morning", "late", "time", "talk", "connected"]
   },
   {
     text: "What’s your favorite version of me?",
@@ -25,7 +25,7 @@ const questions = [
     ],
     reward: "I love that version too 💖"
   }
-  // 👉 add remaining questions here
+  // 👉 add more questions below
 ];
 
 /********************************
@@ -50,8 +50,8 @@ const blocked = [
 ];
 
 const cheatWords = [
-  "20", "ok", "okay", "hogya", "ho gaya",
-  "done", "complete", "completed", "finish"
+  "ok", "okay", "hogya", "ho gaya",
+  "done", "complete", "completed", "finish", "15"
 ];
 
 const hindiRegex = /[\u0900-\u097F]/;
@@ -59,15 +59,15 @@ const hindiRegex = /[\u0900-\u097F]/;
 /********************************
  * HELPER CHECKS
  ********************************/
-function hasSentenceFlow(text) {
-  return text.trim().split(/\s+/).length >= 5;
-}
-
 function hasEnoughWords(text) {
   return text
     .toLowerCase()
     .split(/\s+/)
-    .filter(w => w.length >= 3).length >= 6;
+    .filter(w => w.length >= 3).length >= 3;
+}
+
+function hasSentenceFlow(text) {
+  return text.trim().split(/\s+/).length >= 4;
 }
 
 function looksLikeGibberish(text) {
@@ -95,7 +95,8 @@ function isRelatedToQuestion(answer, keywords) {
   for (let key of keywords) {
     if (lower.includes(key)) matches++;
   }
-  return matches >= 2;
+
+  return matches >= 1; // very gentle relevance
 }
 
 /********************************
@@ -143,13 +144,13 @@ function loadQuestion() {
 }
 
 /********************************
- * CHARACTER COUNTER
+ * CHARACTER COUNTER (15 chars)
  ********************************/
 function updateCounter() {
   if (!el("answer")) return;
   const count = el("answer").value.length;
   el("charCount").innerText = count;
-  el("submitBtn").disabled = count < 20;
+  el("submitBtn").disabled = count < 15;
 }
 
 /********************************
@@ -160,31 +161,29 @@ function submitText() {
   const answer = el("answer").value.trim();
   const lower = answer.toLowerCase();
 
-  if (answer.length < 20)
-    return showError("Please write at least 20 characters 🙂");
+  if (answer.length < 15)
+    return showError("Please write at least 15 characters 🙂");
 
   if (hindiRegex.test(answer))
     return showError("Please write in English letters only 🙂");
 
   for (let w of blocked) {
     if (lower.includes(w))
-      return showError("Please write a proper answer from your heart ❤️");
+      return showError("Please write a real answer from your heart ❤️");
   }
 
   if (containsCheatWords(answer))
     return showError("Please don’t use shortcuts 😊");
 
-  if (!hasSentenceFlow(answer))
-    return showError("Please write a complete sentence 😊");
-
   if (!hasEnoughWords(answer))
-    return showError("Please write a little more ❤️");
+    return showError("Please write at least 3 meaningful words 💕");
 
   if (looksLikeGibberish(answer))
-    return showError("That doesn’t look like a real answer 🙂");
+    return showError("That doesn’t look like a real sentence 🙂");
 
-  if (!isRelatedToQuestion(answer, q.keywords))
-    return showError("Try answering related to the question 😊");
+  if (!isRelatedToQuestion(answer, q.keywords)) {
+    return showError("That’s sweet ❤️ Can you tell me a little more?");
+  }
 
   // ✅ VALID ANSWER
   localStorage.setItem(`answer_${index}`, answer);
