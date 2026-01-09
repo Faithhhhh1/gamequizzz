@@ -1,20 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>One Last Question</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body class="center">
-  <h1>One last thing…</h1>
-  <p>Will you be mine forever? ❤️</p>
 
-  <button class="btn" onclick="yes()">Yes</button>
-  <button class="btn" onclick="yes()">Yes, obviously</button>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #0b132b, #020617);
+      color: white;
+      font-family: "Segoe UI", sans-serif;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 12px 26px;
+      font-size: 16px;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    .no {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    /* Love message */
+    .message {
+      display: none;
+      font-size: 22px;
+      margin-top: 40px;
+      line-height: 1.6;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .popup-box {
+      background: #111;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      animation: pop 0.3s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+
+<body onclick="startMusic()">
+
+  <div class="container">
+    <h1>
+      One last thing…<br>
+      Will you be mine forever? ❤️
+    </h1>
+
+    <div class="buttons">
+      <button class="yes" onclick="yesClicked(event)">YES, obviously</button>
+      <button class="no" onclick="noClicked(event)">NO</button>
+    </div>
+
+    <div class="message" id="loveMessage">
+      My love,<br><br>
+      From the moment you came into my life, everything felt different.<br>
+      I don’t just want you for now — I want you for every tomorrow.<br><br>
+      I choose you. Always. ❤️
+    </div>
+  </div>
+
+  <!-- Angry popup -->
+  <div class="popup" id="popup">
+    <div class="popup-box">
+      <h2>How dare you say NO 😡</h2>
+      <p>I’m angry now.</p>
+      <button class="yes" onclick="closePopup()">Okay okay 😭</button>
+    </div>
+  </div>
+
+  <!-- Hidden YouTube music -->
+  <iframe
+    id="ytPlayer"
+    width="0"
+    height="0"
+    style="display:none;"
+    src="https://www.youtube.com/embed/yjuImlE3-LQ?enablejsapi=1&loop=1&playlist=yjuImlE3-LQ&controls=0&mute=1"
+    frameborder="0"
+    allow="autoplay">
+  </iframe>
 
   <script>
-    function yes() {
-      window.location.href = "yes.html";
+    let musicStarted = false;
+
+    function startMusic() {
+      if (musicStarted) return;
+      musicStarted = true;
+
+      const iframe = document.getElementById("ytPlayer");
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ event: "command", func: "playVideo", args: [] }),
+        "*"
+      );
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ event: "command", func: "unMute", args: [] }),
+        "*"
+      );
+    }
+
+    function yesClicked(e) {
+      e.stopPropagation();
+      document.querySelector(".buttons").style.display = "none";
+      document.getElementById("loveMessage").style.display = "block";
+    }
+
+    function noClicked(e) {
+      e.stopPropagation();
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
     }
   </script>
+
 </body>
 </html>
