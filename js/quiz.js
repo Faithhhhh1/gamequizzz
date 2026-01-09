@@ -6,19 +6,19 @@ const questions = [
     text: "What was the first thing about me that made you feel safe talking to me?",
     type: "text",
     reward: "Reading that made me smile ❤️",
-    keywords: ["safe", "listen", "trust", "comfort", "calm", "understand"]
+    keywords: ["safe", "listen", "trust", "comfort", "calm"]
   },
   {
     text: "What time of day do you feel most connected to me?",
     type: "text",
     reward: "I love knowing that 🥰",
-    keywords: ["night", "morning", "late", "time", "talk", "connected"]
+    keywords: ["night", "morning", "late", "time", "talk"]
   },
   {
     text: "What’s one habit of mine you secretly find cute?",
     type: "text",
     reward: "That’s adorable 😌",
-    keywords: ["habit", "cute", "smile", "small", "thing"]
+    keywords: ["habit", "cute", "smile", "small"]
   },
   {
     text: "What’s your favorite version of me?",
@@ -31,7 +31,7 @@ const questions = [
     ],
     reward: "I love that version too 💖"
   }
-  // ➕ add remaining questions here
+  // 👉 add remaining questions here
 ];
 
 /*************************
@@ -110,7 +110,6 @@ function looksLikeGibberish(text) {
   return false;
 }
 
-/* 🔑 QUESTION-RELEVANCE CHECK */
 function isRelatedToQuestion(answer, keywords) {
   if (!keywords || keywords.length === 0) return true;
 
@@ -118,11 +117,9 @@ function isRelatedToQuestion(answer, keywords) {
   let matches = 0;
 
   for (let key of keywords) {
-    if (lower.includes(key)) {
-      matches++;
-    }
+    if (lower.includes(key)) matches++;
   }
-  return matches >= 2; // gentle relevance check
+  return matches >= 2;
 }
 
 /*************************
@@ -162,11 +159,11 @@ function loadQuestion() {
     document.getElementById("textBox").style.display = "block";
   } else {
     q.options.forEach(opt => {
-      const div = document.createElement("div");
-      div.className = "option";
-      div.innerText = opt;
-      div.onclick = () => showReward(q.reward);
-      document.getElementById("optionsBox").appendChild(div);
+      const btn = document.createElement("div");
+      btn.className = "option";
+      btn.innerText = opt;
+      btn.onclick = () => showReward(q.reward);
+      document.getElementById("optionsBox").appendChild(btn);
     });
   }
 }
@@ -219,7 +216,7 @@ function submitText() {
   if (!isRelatedToQuestion(answer, q.keywords))
     return showError("Try answering related to the question 😊");
 
-  // ✅ VALID ANSWER
+  // ✅ PASSED ALL CHECKS
   localStorage.setItem(`answer_${index}`, answer);
   showReward(q.reward);
 }
