@@ -21,16 +21,16 @@ const questions = [
 
 /******** GIFS ********/
 const gifs = [
-  "assets/10344274144504984.gif",
-  "assets/143552925555589073.gif",
-  "assets/27021666509846925.gif",
-  "assets/35395547060768152.gif",
-  "assets/3588874692373379.gif",
-  "assets/461619030576156033.gif",
-  "assets/58406126413699972.gif",
-  "assets/66217057016734145.gif",
-  "assets/7107311904187212.gif",
-  "assets/83738874316669407.gif"
+  "assets/assets1.gif",
+  "assets/assets2.gif",
+  "assets/assets3.gif",
+  "assets/assets4.gif",
+  "assets/assets5.gif",
+  "assets/assets6.gif",
+  "assets/assets7.gif",
+  "assets/assets8.gif",
+  "assets/assets9.gif",
+  "assets/assets10.gif"
 ];
 
 let index = 0;
@@ -55,11 +55,13 @@ function setRandomGif() {
   const img = document.getElementById("questionGif");
   if (!img) return;
 
-  img.style.opacity = 0;
-  setTimeout(() => {
-    img.src = gifs[Math.floor(Math.random() * gifs.length)];
-    img.style.opacity = 1;
-  }, 200);
+  const src = gifs[Math.floor(Math.random() * gifs.length)];
+  img.style.display = "none";
+  img.src = src;
+
+  img.onload = () => {
+    img.style.display = "block";
+  };
 }
 
 /******** SAKURA ********/
@@ -77,9 +79,10 @@ function createSakura() {
 }
 setInterval(createSakura, 700);
 
-/******** LOAD ********/
+/******** LOAD QUESTION ********/
 function loadQuestion() {
   const q = questions[index];
+
   document.getElementById("question").innerText = q.text;
   document.getElementById("reward").innerText = "";
   document.getElementById("error").innerText = "";
@@ -109,19 +112,21 @@ function loadQuestion() {
   }
 }
 
+/******** COUNTER ********/
 function updateCounter() {
   const count = document.getElementById("answer").value.length;
   document.getElementById("charCount").innerText = count;
   document.getElementById("submitBtn").disabled = count < 15;
 }
 
+/******** SUBMIT ********/
 function submitText() {
   playYouTubeMusic();
-  document.getElementById("reward").innerText =
-    questions[index].reward;
+  document.getElementById("reward").innerText = questions[index].reward;
   document.getElementById("nextBtn").style.display = "block";
 }
 
+/******** NEXT ********/
 function nextQuestion() {
   index++;
   if (index >= questions.length) {
