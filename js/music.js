@@ -1,56 +1,47 @@
 // js/music.js
 
 let player;
+let musicStarted = false;
+
+// CHANGE ONLY THIS if you want another song
 const VIDEO_ID = "yjuImlE3-LQ"; // your song
-const START_TIME = 10;
 
-// prevent multiple inits
-if (!window.__musicInitialized) {
-  window.__musicInitialized = true;
+// Load YouTube API
+(function loadYT() {
+  const tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+})();
 
-  window.onYouTubeIframeAPIReady = function () {
-    if (player) return;
-
-    player = new YT.Player("yt-player", {
-      height: "0",
-      width: "0",
-      videoId: VIDEO_ID,
-      playerVars: {
-        start: START_TIME,
-        autoplay: 0,
-        controls: 0,
-        loop: 1,
-        playlist: VIDEO_ID,
-      },
-      events: {
-        onReady: onPlayerReady,
-      },
-    });
-  };
-
-  function onPlayerReady() {
-    // only play if user already tapped Start
-    const shouldPlay = localStorage.getItem("musicStarted");
-    if (shouldPlay === "true") {
-      player.seekTo(START_TIME);
-      player.playVideo();
+// Called automatically by YouTube API
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player("yt-player", {
+    height: "0",
+    width: "0",
+    videoId: VIDEO_ID,
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      modestbranding: 1,
+      rel: 0,
+      start: 10 // ⏱ start from 0:10
+    },
+    events: {
+      onReady: () => {
+        console.log("YouTube player ready");
+      }
     }
-  }
-
-  // load API once
-  if (!document.getElementById("yt-api")) {
-    const tag = document.createElement("script");
-    tag.id = "yt-api";
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.body.appendChild(tag);
-  }
+  });
 }
 
-// called manually after Start
-window.startMusic = function () {
-  localStorage.setItem("musicStarted", "true");
-  if (player) {
-    player.seekTo(START_TIME);
-    player.playVideo();
-  }
+// THIS is what Start button will call
+window.enableMusic = function () {
+  if (!player || musicStarted) return;
+
+  musicStarted = true;
+  player.unMute();
+  player.setVolume(40);
+  player.playVideo();
 };
