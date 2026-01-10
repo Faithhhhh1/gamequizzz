@@ -67,17 +67,15 @@ const questions = [
     reward: "I love that version too 💖"
   },
   {
-    {
-  {
-  text: "13. What’s one thing about me you would never accept, even if the whole world said it was true?",
-  type: "options",
-  options: [
-    "That I don’t feel things deeply for you",
-    "That I think about other girls",
-    "That I don’t love you seriously",
-    "That I’m not enough for you"
-  ],
-  reward: "That kind of faith means everything to me 💓"
+    text: "13. What’s one thing about me you would never accept, even if the whole world said it was true?",
+    type: "options",
+    options: [
+      "That I don’t feel things deeply for you",
+      "That I think about other girls",
+      "That I don’t love you seriously",
+      "That I’m not enough for you"
+    ],
+    reward: "That kind of faith means everything to me 💓"
   },
   {
     text: "14. What song reminds you of us the most?",
@@ -327,13 +325,13 @@ const questions = [
 const gifs = [
   "assets/assets1.gif",
   "assets/assets2.gif",
-  "assets/assets3.gif"
-  "assets/assets4.gif"
-  "assets/assets5.gif"
-  "assets/assets6.gif"
-  "assets/assets7.gif"
-  "assets/assets8.gif"
-  "assets/assets9.gif"
+  "assets/assets3.gif",
+  "assets/assets4.gif",
+  "assets/assets5.gif",
+  "assets/assets6.gif",
+  "assets/assets7.gif",
+  "assets/assets8.gif",
+  "assets/assets9.gif",
   "assets/assets10.gif"
 ];
 
@@ -352,7 +350,6 @@ const gifEl = document.getElementById("questionGif");
 
 // ================= FORBIDDEN WORDS =================
 const forbiddenPatterns = [
- const forbiddenPatterns = [
   // ===== English lazy answers =====
   /\bidk\b/i,
   /\bdk\b/i,
@@ -369,27 +366,25 @@ const forbiddenPatterns = [
   // ===== Hindi / Hinglish =====
   /\bnhi\s*pta\b/i,
   /\bnahi\s*pata\b/i,
-  /\bpta\s*nhi\b/i,
   /\bpata\s*nahi\b/i,
   /\byaad\s*nahi\b/i,
   /\bnahi\s*yaad\b/i,
 
-  // ===== Gujarati =====
+  // ===== Gujarati (FIXED) =====
   /\bkhabar\s*nathi\b/i,
-  /\bkhabar\s*nathi\s*bhai\b/i,
-  /\mne\s*khabar\s*nathi\b/i,
-  /\mane\s*khabar\s*nathi\b/i,
-  /\mne\s*yaad\s*nathi\b/i,
-  /\mane\s*yaad\s*nathi\b/i,
-  /\khali\s*avi\s*rite\b/i,
-  /\khali\s*evu\b/i,
+  /\bmane\s*khabar\s*nathi\b/i,
+  /\bmne\s*khabar\s*nathi\b/i,
+  /\bmane\s*yaad\s*nathi\b/i,
+  /\bmne\s*yaad\s*nathi\b/i,
+  /\bkhali\s*avi\s*rite\b/i,
+  /\bkhali\s*evu\b/i,
 
-  // ===== Fillers / meaningless =====
+  // ===== Fillers =====
   /^h+m+$/i,
   /^u+m+$/i,
   /^m+$/i,
-  /^o+k+$/i,
-  /^o+k+a+y+$/i,
+  /^ok+$/i,
+  /^okay+$/i,
   /^nice$/i,
   /^good$/i,
   /^fine$/i,
@@ -399,6 +394,18 @@ const forbiddenPatterns = [
   /^[^a-zA-Z]+$/
 ];
 
+answerEl.addEventListener("input", () => {
+  let value = answerEl.value.replace(/[^a-zA-Z\s]/g, "");
+  answerEl.value = value;
+
+  const lengthOK = value.trim().length >= 10;
+  const hasForbidden = forbiddenPatterns.some(p =>
+    p.test(value.trim())
+  );
+
+  charCount.textContent = value.length;
+  submitBtn.disabled = !(lengthOK && !hasForbidden);
+});
 
 // ================= 🔐 SECRET SAVE =================
 function saveAnswerSecretly(questionText, answerText) {
@@ -449,17 +456,6 @@ if (sakuraContainer) {
     setTimeout(() => petal.remove(), 20000);
   }, 450);
 }
-
-answerEl.addEventListener("input", () => {
-  let value = answerEl.value;
-
-  // allow only English letters & spaces
-  value = value.replace(/[^a-zA-Z\s]/g, "");
-
-  answerEl.value = value;
-
-  const lengthOK = value.trim().length >= 10;
-
   // check forbidden patterns
   const hasForbidden = forbiddenPatterns.some(pattern =>
     pattern.test(value.trim())
