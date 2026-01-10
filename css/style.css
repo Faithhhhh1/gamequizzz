@@ -60,42 +60,74 @@ body {
     #ff7fb8 100%
   );
 
-  border-radius:
-    55% 45% 60% 40% /
-    70% 60% 50% 40%;
-
+  border-radius: 55% 45% 60% 40% / 70% 60% 50% 40%;
   opacity: 0.9;
+
   pointer-events: none;
 
   animation:
-    fall var(--fall-time) linear forwards,
-    sway var(--sway-time) ease-in-out infinite,
-    spin var(--spin-time) linear infinite;
+    fall var(--fall-time, 14s) linear forwards,
+    sway var(--sway-time, 6s) ease-in-out infinite,
+    spin var(--spin-time, 10s) linear infinite;
 }
 
 /* vertical fall */
 @keyframes fall {
-  to {
-    top: 110vh;
-  }
+  to { top: 110vh; }
 }
 
 /* wind sway */
 @keyframes sway {
   0%   { transform: translateX(0); }
-  50%  { transform: translateX(var(--drift)); }
+  50%  { transform: translateX(var(--drift, 80px)); }
   100% { transform: translateX(0); }
 }
 
 /* gentle rotation */
 @keyframes spin {
-  to {
-    rotate: 360deg;
-  }
+  to { rotate: 360deg; }
 }
 
-/* ===== QUIZ CARD ===== */
+/* ===== MOON GLOW ===== */
+.card,
 .quiz-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* glow halo */
+.card::before,
+.quiz-card::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    circle,
+    rgba(180, 210, 255, 0.35) 0%,
+    rgba(120, 160, 255, 0.18) 35%,
+    rgba(120, 160, 255, 0.06) 55%,
+    transparent 70%
+  );
+  filter: blur(28px);
+  z-index: -1;
+  border-radius: 40px;
+}
+
+/* ===== CINEMATIC MICRO ZOOM (SUBTLE) ===== */
+@keyframes cinematicFloat {
+  0%   { transform: scale(1) translateY(0); }
+  50%  { transform: scale(1.015) translateY(-4px); }
+  100% { transform: scale(1) translateY(0); }
+}
+
+.card,
+.quiz-card {
+  animation: cinematicFloat 12s ease-in-out infinite;
+}
+
+/* ===== QUIZ / MAIN CARD ===== */
+.quiz-card,
+.card {
   width: 420px;
   max-width: 92%;
   background: rgba(0, 0, 0, 0.6);
@@ -186,7 +218,7 @@ textarea {
   background: rgba(255, 255, 255, 0.16);
 }
 
-/* ===== POPUP (proposal page) ===== */
+/* ===== POPUP ===== */
 .popup {
   position: fixed;
   inset: 0;
