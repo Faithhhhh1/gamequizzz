@@ -114,8 +114,22 @@
   </div>
 
   <script>
+  // REQUIRED BUTTON FUNCTIONS (were missing)
+  function showPopup() {
+    document.getElementById("popup").style.display = "flex";
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+
+  function goYes() {
+    window.location.href = "yes.html";
+  }
+
+  // 💌 SEND ANSWERS LOGIC (FIXED STORAGE)
   const btn = document.getElementById("sendAnswersBtn");
-  const answers = localStorage.getItem("quizAnswersFinal");
+  const answers = sessionStorage.getItem("quizAnswers"); // ✅ FIXED
 
   if (btn && answers) {
     btn.style.display = "block";
@@ -135,13 +149,12 @@
 
       window.open(`https://wa.me/${phoneNumber}?text=${msg}`, "_blank");
 
-      // optional UX polish
+      // UX polish
       btn.textContent = "💖 Sent with love";
       btn.disabled = true;
       btn.style.opacity = "0.6";
     });
   }
 </script>
-
 </body>
 </html>
