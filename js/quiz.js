@@ -35,7 +35,17 @@ const counterEl = document.getElementById("counter");
 const charCount = document.getElementById("charCount");
 const optionsBox = document.getElementById("optionsBox");
 const gifEl = document.getElementById("questionGif");
+answerEl.addEventListener("input", () => {
+  const value = answerEl.value;
+  const lettersOnly = value.replace(/[^a-zA-Z\s]/g, "");
 
+  if (value !== lettersOnly) {
+    answerEl.value = lettersOnly;
+  }
+
+  charCount.textContent = answerEl.value.length;
+  submitBtn.disabled = answerEl.value.length < 15;
+});
 function loadQuestion() {
   const q = questions[index];
 
