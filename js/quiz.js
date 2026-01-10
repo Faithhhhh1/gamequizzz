@@ -61,11 +61,11 @@ answerEl.addEventListener("input", () => {
 
   const words = value.trim().split(/\s+/);
 
-  let words.length = 0;
+  let validEnglishWords = 0;
 
   words.forEach(word => {
     if (englishDictionary.has(word)) {
-      words.length++;
+      validEnglishWords++;
     }
   });
 
@@ -75,7 +75,7 @@ answerEl.addEventListener("input", () => {
   // REQUIRE:
   // - minimum 15 characters
   // - minimum 3 real English words
-  submitBtn.disabled = !(value.length >= 15 && words.length >= 3);
+  submitBtn.disabled = !(value.length >= 15 && validEnglishWords >= 3);
 });
 
 // ================= LOAD QUESTION =================
