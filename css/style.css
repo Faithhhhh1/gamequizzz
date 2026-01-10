@@ -21,7 +21,7 @@ body {
 #stars {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -3;
   background:
     radial-gradient(1px 1px at 10% 20%, white, transparent),
     radial-gradient(1px 1px at 30% 80%, white, transparent),
@@ -33,45 +33,55 @@ body {
 }
 
 @keyframes twinkle {
-  from { opacity: 0.4; }
-  to   { opacity: 0.8; }
+  from { opacity: 0.35; }
+  to   { opacity: 0.85; }
+}
+
+/* ===== SAKURA CONTAINER (IMPORTANT) ===== */
+#sakura-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  overflow: hidden;
 }
 
 /* ===== REALISTIC SAKURA PETALS ===== */
 .sakura {
   position: absolute;
   top: -10%;
-  width: 14px;
-  height: 18px;
+  width: 16px;
+  height: 20px;
 
-  /* realistic petal gradient */
   background: radial-gradient(
     circle at 30% 30%,
-    #ffe3ef 0%,
-    #ff9fc5 55%,
-    #ff7fb0 100%
+    #fff0f6 0%,
+    #ffb7d5 50%,
+    #ff7fb8 100%
   );
 
   /* organic petal shape */
-  border-radius: 60% 40% 60% 40% / 70% 50% 60% 40%;
+  border-radius:
+    55% 45% 60% 40% /
+    70% 60% 50% 40%;
 
   opacity: 0.9;
   pointer-events: none;
 
   animation:
-    fall linear forwards,
-    sway ease-in-out infinite,
-    spin linear infinite;
+    fall var(--fall-time) linear forwards,
+    sway var(--sway-time) ease-in-out infinite,
+    spin var(--spin-time) linear infinite;
 }
 
-/* gravity */
+/* vertical fall */
 @keyframes fall {
   to {
-    transform: translateY(120vh);
+    top: 110vh;
   }
 }
 
-/* wind sway */
+/* wind sway (left & right) */
 @keyframes sway {
   0%   { transform: translateX(0); }
   50%  { transform: translateX(var(--drift)); }
@@ -80,10 +90,10 @@ body {
 
 /* gentle rotation */
 @keyframes spin {
-  from { rotate: 0deg; }
-  to   { rotate: 360deg; }
+  to {
+    rotate: 360deg;
+  }
 }
-
 
 /* ===== QUIZ CARD ===== */
 .quiz-card {
