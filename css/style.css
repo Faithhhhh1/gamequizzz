@@ -1,23 +1,78 @@
-/* RESET */
+/* ===== RESET ===== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* PAGE BACKGROUND */
+/* ===== PAGE BACKGROUND ===== */
 body {
   min-height: 100vh;
   display: flex;
-  justify-content: center;   /* horizontal center */
-  align-items: center;       /* vertical center */
-  background: radial-gradient(circle at top, #0b1b3a, #050b1a);
+  justify-content: center;
+  align-items: center;
   font-family: "Poppins", sans-serif;
   color: #fff;
-  overflow: hidden;
+  background: radial-gradient(circle at top, #0a1a3a, #020b1c);
+  overflow-x: hidden;
 }
 
-/* QUIZ CARD */
+/* ===== STARS ===== */
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(1px 1px at 70% 40%, white, transparent),
+    radial-gradient(1px 1px at 90% 10%, white, transparent),
+    radial-gradient(2px 2px at 50% 60%, white, transparent);
+  background-size: 200px 200px;
+  animation: twinkle 6s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.4; }
+  to   { opacity: 0.8; }
+}
+
+/* ===== SAKURA PETALS ===== */
+#sakura-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.sakura {
+  position: absolute;
+  top: -10%;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 30% 30%, #ffd6e7, #ff9ac1);
+  border-radius: 60% 40% 60% 40%;
+  opacity: 0.8;
+  animation:
+    fall linear infinite,
+    sway ease-in-out infinite,
+    spin linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(120vh); }
+}
+
+@keyframes sway {
+  0%, 100% { margin-left: 0; }
+  50% { margin-left: 80px; }
+}
+
+@keyframes spin {
+  to { rotate: 360deg; }
+}
+
+/* ===== QUIZ CARD ===== */
 .quiz-card {
   width: 420px;
   max-width: 92%;
@@ -29,14 +84,14 @@ body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
 }
 
-/* GIF */
+/* ===== GIF ===== */
 #questionGif {
   width: 120px;
-  margin: 0 auto 18px auto;  /* centers GIF */
+  margin: 0 auto 18px;
   display: block;
 }
 
-/* QUESTION TEXT */
+/* ===== TEXT ===== */
 h2 {
   font-size: 22px;
   margin-bottom: 8px;
@@ -48,7 +103,7 @@ h2 {
   margin-bottom: 14px;
 }
 
-/* TEXTAREA */
+/* ===== TEXTAREA ===== */
 textarea {
   width: 100%;
   height: 110px;
@@ -60,16 +115,16 @@ textarea {
   resize: none;
 }
 
-/* CHARACTER COUNT */
+/* ===== CHARACTER COUNT ===== */
 .char-count {
   margin-top: 6px;
   font-size: 13px;
   opacity: 0.8;
 }
 
-/* BUTTONS */
+/* ===== BUTTON ===== */
 .btn-primary {
-  margin: 18px auto 0 auto;
+  margin: 18px auto 0;
   padding: 12px 26px;
   border-radius: 18px;
   border: none;
@@ -85,7 +140,7 @@ textarea {
   cursor: not-allowed;
 }
 
-/* OPTIONS */
+/* ===== OPTIONS ===== */
 .option {
   background: rgba(255, 255, 255, 0.08);
   padding: 14px;
