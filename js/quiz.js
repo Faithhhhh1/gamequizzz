@@ -370,23 +370,6 @@ answerEl.addEventListener("input", () => {
   submitBtn.disabled = !(lengthOK && !hasForbidden);
 });
 
-// ================= 🔐 SECRET SAVE =================
-function saveAnswerSecretly(questionText, answerText) {
-  const KEY = "💖only_you_can_see💖";
-  const saved = JSON.parse(localStorage.getItem(KEY)) || [];
-
-  const existingIndex = saved.findIndex(item => item.question === questionText);
-
-  const entry = {
-    question: questionText,
-    answer: answerText,
-    time: new Date().toISOString()
-  };
-
-  existingIndex !== -1 ? saved[existingIndex] = entry : saved.push(entry);
-  localStorage.setItem(KEY, JSON.stringify(saved));
-}
-
 // ================= 🌸 REALISTIC SAKURA PETALS =================
 const sakuraContainer = document.getElementById("sakura-container");
 
