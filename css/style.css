@@ -37,7 +37,7 @@ body {
   to   { opacity: 0.85; }
 }
 
-/* ===== SAKURA CONTAINER (IMPORTANT) ===== */
+/* ===== SAKURA CONTAINER ===== */
 #sakura-container {
   position: fixed;
   inset: 0;
@@ -60,7 +60,6 @@ body {
     #ff7fb8 100%
   );
 
-  /* organic petal shape */
   border-radius:
     55% 45% 60% 40% /
     70% 60% 50% 40%;
@@ -81,7 +80,7 @@ body {
   }
 }
 
-/* wind sway (left & right) */
+/* wind sway */
 @keyframes sway {
   0%   { transform: translateX(0); }
   50%  { transform: translateX(var(--drift)); }
@@ -107,6 +106,14 @@ body {
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
 }
 
+/* ===== CENTER HELPERS ===== */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 /* ===== GIF ===== */
 #questionGif {
   width: 120px;
@@ -115,15 +122,16 @@ body {
 }
 
 /* ===== TEXT ===== */
-h2 {
-  font-size: 22px;
-  margin-bottom: 8px;
+h1, h2 {
+  margin-bottom: 10px;
 }
 
-.subtext {
-  font-size: 14px;
-  opacity: 0.8;
-  margin-bottom: 14px;
+h2 {
+  font-size: 22px;
+}
+
+p {
+  opacity: 0.9;
 }
 
 /* ===== TEXTAREA ===== */
@@ -139,6 +147,7 @@ textarea {
 }
 
 /* ===== CHARACTER COUNT ===== */
+.counter,
 .char-count {
   margin-top: 6px;
   font-size: 13px;
@@ -175,4 +184,22 @@ textarea {
 
 .option:hover {
   background: rgba(255, 255, 255, 0.16);
+}
+
+/* ===== POPUP (proposal page) ===== */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup-box {
+  background: #111;
+  padding: 30px;
+  border-radius: 18px;
+  text-align: center;
 }
