@@ -44,7 +44,7 @@ const questions = [
     reward: "That moment mattered ✨"
   },
   {
-    text: "9. Which moment made you think: “Okay… this is different”?",
+    text: "9. Which moment made you think: “Okay… he is different”?",
     type: "text",
     reward: "That changed things 💫"
   },
@@ -67,7 +67,7 @@ const questions = [
       "Loving but naughty me",
       "Normal me"
     ],
-    reward: "I love that version too 💖"
+    reward: "I love you. 💖"
   },
   {
     text: "13. What’s one thing about me you would never accept, even if the whole world said it was true?",
