@@ -458,15 +458,21 @@ if (submitBtn) {
       answer: answerEl.value.trim()
     });
 
-    sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
+    sessionStorage.setItem(
+      "quizAnswers",
+      JSON.stringify(collectedAnswers)
+    );
 
     rewardEl.textContent = questions[index].reward;
 
     setTimeout(() => {
       index++;
-      index >= questions.length
-        ? finishQuiz()
-        : loadQuestion();
+
+      if (index >= questions.length) {
+        finishQuiz(); // ✅ THIS FIXES THE STUCK LAST MESSAGE
+      } else {
+        loadQuestion();
+      }
     }, 800);
   });
 }
