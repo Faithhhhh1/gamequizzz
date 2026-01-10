@@ -6,35 +6,40 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="night">
-<!-- Sakura petals -->
-<div id="sakura-container"></div>
-<div class="quiz-card">
-  <img id="questionGif" class="gif" />
 
-  <h2 id="question"></h2>
-  <p id="hint" class="hint"></p>
+  <!-- Stars background -->
+  <div id="stars"></div>
 
-  <!-- TEXT ANSWER -->
-  <textarea
-  id="answer"
-  placeholder="Write here..."
-  spellcheck="false"
-></textarea>
+  <!-- Sakura petals -->
+  <div id="sakura-container"></div>
 
-  <div id="counter" class="counter">
-    <span id="charCount">0</span> / 15 characters
+  <div class="quiz-card">
+    <img id="questionGif" class="gif" />
+
+    <h2 id="question"></h2>
+    <p id="hint" class="hint"></p>
+
+    <!-- TEXT ANSWER -->
+    <textarea
+      id="answer"
+      placeholder="Write here..."
+      spellcheck="false"
+    ></textarea>
+
+    <div id="counter" class="counter">
+      <span id="charCount">0</span> / 15 characters
+    </div>
+
+    <button id="submitBtn" class="btn-primary" disabled>
+      Submit
+    </button>
+
+    <!-- OPTIONS -->
+    <div id="optionsBox"></div>
+
+    <p id="reward" class="reward"></p>
   </div>
 
-  <button id="submitBtn" class="btn-primary" disabled>
-    Submit
-  </button>
-
-  <!-- OPTIONS -->
-  <div id="optionsBox"></div>
-
-  <p id="reward" class="reward"></p>
-</div>
-
-<script src="js/quiz.js"></script>
+  <script src="js/quiz.js"></script>
 </body>
 </html>
