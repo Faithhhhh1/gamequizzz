@@ -1,56 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>One Last Question</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #0a1633, #050b1a);
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
+    .card {
+      background: rgba(0,0,0,0.55);
+      padding: 40px;
+      border-radius: 22px;
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      opacity: 0.9;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 26px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    .no {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+
+    /* POPUP */
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .popup-box {
+      background: #111;
+      padding: 30px;
+      border-radius: 18px;
+      text-align: center;
+      animation: pop 0.25s ease;
+      max-width: 320px;
+    }
+
+    .popup-box h2 {
+      margin-bottom: 12px;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0.85);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
 <body>
 
-  <div class="quiz-card">
+  <div class="card">
+    <h1>I Love You ❤️</h1>
+    <p>Will you be mine forever?</p>
 
-    <h1 style="font-size: 36px; margin-bottom: 10px;">
-      I Love You ❤️
-    </h1>
-
-    <p style="font-size: 18px; opacity: 0.9; margin-bottom: 30px;">
-      Will you be mine forever?
-    </p>
-
-    <!-- BUTTONS -->
-    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-
-      <button class="btn-primary" onclick="window.location.href='yes.html'">
-        Yes, obviously 💖
-      </button>
-
-      <button class="btn-primary" onclick="showAngry()">
-        No
-      </button>
-
+    <div class="buttons">
+      <button class="yes" onclick="goYes()">Yes, obviously 💖</button>
+      <button class="no" onclick="showPopup()">No</button>
     </div>
+  </div>
 
-    <!-- ANGRY MESSAGE -->
-    <p id="angryText"
-       style="margin-top: 20px; font-size: 16px; display: none;">
-      How dare you say no 😡<br>
-      I am angry now!
-    </p>
-
-    <button id="sorryBtn"
-            class="btn-primary"
-            style="display: none; margin-top: 16px;"
-            onclick="window.location.href='yes.html'">
-      Okay sorry 🥺
-    </button>
-
+  <!-- POPUP -->
+  <div class="popup" id="popup">
+    <div class="popup-box">
+      <h2>How dare you say no 😡</h2>
+      <p>I am angry now!</p>
+      <button class="yes" onclick="closePopup()">Okay sorry 🥺</button>
+    </div>
   </div>
 
   <script>
-    function showAngry() {
-      document.getElementById("angryText").style.display = "block";
-      document.getElementById("sorryBtn").style.display = "block";
+    function showPopup() {
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    function goYes() {
+      window.location.href = "yes.html";
     }
   </script>
 
