@@ -36,16 +36,38 @@ const charCount = document.getElementById("charCount");
 const optionsBox = document.getElementById("optionsBox");
 const gifEl = document.getElementById("questionGif");
 answerEl.addEventListener("input", () => {
-  const value = answerEl.value;
-  const lettersOnly = value.replace(/[^a-zA-Z\s]/g, "");
+  let value = answerEl.value;
 
-  if (value !== lettersOnly) {
-    answerEl.value = lettersOnly;
-  }
+  // Allow only letters and spaces
+  value = value.replace(/[^a-zA-Z\s]/g, "");
 
+  // Split words
+  const words = value.trim().split(/\s+/);
+
+  // Very small English word whitelist (core words)
+  const englishWords = [
+    "i","you","me","we","us","love","feel","felt","safe","kind",
+    "calm","comfortable","happy","smile","care","caring","sweet",
+    "honest","talking","listened","listening","first","thing",
+    "because","when","your","voice","words","heart","understand"
+  ];
+
+  // Keep only words that look English
+  const filteredWords = words.filter(word => {
+    return (
+      word.length > 2 &&
+      /[aeiou]/i.test(word) &&        // must contain vowels
+      !/(hh|jj|xx|zz|vv)/i.test(word) // blocks gibberish
+    );
+  });
+
+  answerEl.value = filteredWords.join(" ");
+
+  // Update counter + button
   charCount.textContent = answerEl.value.length;
   submitBtn.disabled = answerEl.value.length < 15;
 });
+
 function loadQuestion() {
   const q = questions[index];
 
