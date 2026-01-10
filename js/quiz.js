@@ -256,6 +256,26 @@ const charCount = document.getElementById("charCount");
 const optionsBox = document.getElementById("optionsBox");
 const gifEl = document.getElementById("questionGif");
 
+// ================= FORBIDDEN WORDS =================
+const forbiddenPatterns = [
+  /\bidk\b/i, /\bdk\b/i, /\bi\s*don'?t\s*know\b/i, /\bdont\s*know\b/i,
+  /\bno\s*idea\b/i, /\bnot\s*sure\b/i, /\bcant\s*remember\b/i,
+  /\bdont\s*remember\b/i, /\bwhatever\b/i, /\banything\b/i,
+  /^[^a-zA-Z]+$/
+];
+
+// ✅ FIX (THIS WAS MISSING)
+answerEl.addEventListener("input", () => {
+  let value = answerEl.value.replace(/[^a-zA-Z\s]/g, "");
+  answerEl.value = value;
+
+  const lengthOK = value.trim().length >= 10;
+  const hasForbidden = forbiddenPatterns.some(p => p.test(value.trim()));
+
+  charCount.textContent = value.length;
+  submitBtn.disabled = !(lengthOK && !hasForbidden);
+});
+
 // ================= LOAD QUESTION =================
 function loadQuestion() {
   const q = questions[index];
@@ -308,9 +328,12 @@ function loadQuestion() {
 
 // ================= SUBMIT TEXT ANSWER =================
 submitBtn.addEventListener("click", () => {
-  collectedAnswers.push({ question: questions[index].text, answer: answerEl.value.trim() });
-  sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
+  collectedAnswers.push({
+    question: questions[index].text,
+    answer: answerEl.value.trim()
+  });
 
+  sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
   rewardEl.textContent = questions[index].reward;
 
   setTimeout(() => {
