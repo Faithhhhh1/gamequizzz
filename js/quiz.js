@@ -453,25 +453,26 @@ function loadQuestion() {
 // ================= SUBMIT TEXT ANSWER =================
 if (submitBtn) {
   submitBtn.addEventListener("click", () => {
-  collectedAnswers.push({
-    question: questions[index].text,
-    answer: answerEl.value.trim()
+    collectedAnswers.push({
+      question: questions[index].text,
+      answer: answerEl.value.trim()
+    });
+
+    sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
+
+    rewardEl.textContent = questions[index].reward;
+
+    setTimeout(() => {
+      index++;
+      index >= questions.length
+        ? finishQuiz()
+        : loadQuestion();
+    }, 800);
   });
+}
 
-  sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
-
-  rewardEl.textContent = questions[index].reward;
-
-  setTimeout(() => {
-    index++;
-    index >= questions.length
-      ? finishQuiz()
-      : loadQuestion();
-  }, 800);
-});
-
-
-  loadQuestion();
+// ✅ INIT
+loadQuestion();
 // ================= FINISH QUIZ =================
 function finishQuiz() {
   const saved = sessionStorage.getItem("quizAnswers");
