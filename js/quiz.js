@@ -424,7 +424,6 @@ function loadQuestion() {
       btn.textContent = option;
 
       btn.onclick = () => {
-        saveAnswerSecretly(q.text, option);
         rewardEl.textContent = q.reward;
 
         setTimeout(() => {
@@ -443,7 +442,6 @@ function loadQuestion() {
 // ================= SUBMIT TEXT ANSWER =================
 if (submitBtn) {
   submitBtn.addEventListener("click", () => {
-    saveAnswerSecretly(questions[index].text, answerEl.value.trim());
     rewardEl.textContent = questions[index].reward;
 
     setTimeout(() => {
