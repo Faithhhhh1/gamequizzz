@@ -349,7 +349,14 @@ submitBtn.addEventListener("click", () => {
 
 // ================= FINISH QUIZ =================
 function finishQuiz() {
+  const saved = sessionStorage.getItem("quizAnswers");
+
+  // ✅ SAVE PERMANENTLY
+  localStorage.setItem("quizAnswersFinal", saved);
+
+  // clear progress index
   sessionStorage.removeItem("quizIndex");
+
   window.location.href = "proposal.html";
 }
 
