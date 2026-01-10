@@ -38,7 +38,6 @@ const optionsBox = document.getElementById("optionsBox");
 const gifEl = document.getElementById("questionGif");
 
 // ================= ENGLISH DICTIONARY =================
-// (You can safely add more words anytime)
 const englishDictionary = new Set([
   "i","you","me","we","us","my","your","mine",
   "love","loved","loving",
@@ -52,6 +51,20 @@ const englishDictionary = new Set([
   "soft","sweet","warm","patient","trust","trusted"
 ]);
 
+// ================= 🔐 SECRET SAVE (NEW) =================
+function saveAnswerSecretly(questionText, answerText) {
+  const KEY = "💖only_you_can_see💖";
+  const saved = JSON.parse(localStorage.getItem(KEY)) || [];
+
+  saved.push({
+    question: questionText,
+    answer: answerText,
+    time: new Date().toISOString()
+  });
+
+  localStorage.setItem(KEY, JSON.stringify(saved));
+}
+
 // ================= INPUT VALIDATION =================
 answerEl.addEventListener("input", () => {
   let value = answerEl.value.toLowerCase();
@@ -60,7 +73,6 @@ answerEl.addEventListener("input", () => {
   value = value.replace(/[^a-z\s]/g, "");
 
   const words = value.trim().split(/\s+/);
-
   let validEnglishWords = 0;
 
   words.forEach(word => {
@@ -133,6 +145,12 @@ function loadQuestion() {
 
 // ================= SUBMIT TEXT ANSWER =================
 submitBtn.addEventListener("click", () => {
+  // 🔐 SAVE ANSWER SECRETLY (NEW)
+  saveAnswerSecretly(
+    questions[index].text,
+    answerEl.value.trim()
+  );
+
   rewardEl.textContent = questions[index].reward;
 
   setTimeout(() => {
