@@ -61,12 +61,7 @@ const questions = [
   {
     text: "12. What’s your favorite version of me?",
     type: "options",
-    options: [
-      "Sleepy me",
-      "Serious me",
-      "Loving but naughty me",
-      "Normal me"
-    ],
+    options: ["Sleepy me","Serious me","Loving but naughty me","Normal me"],
     reward: "I love you. 💖"
   },
   {
@@ -139,206 +134,116 @@ const questions = [
   {
     text: "25. What do you think I value most in you?",
     type: "options",
-    options: [
-      "Your beauty",
-      "Your dumbness",
-      "Your emotional depth",
-      "Your sarcasm"
-    ],
+    options: ["Your beauty","Your dumbness","Your emotional depth","Your sarcasm"],
     reward: "You matter to me 💖"
   },
   {
     text: "26. How do I make you think I’m loving you so much right now?",
     type: "options",
-    options: [
-      "Giving space",
-      "Talking naughty",
-      "Flirting",
-      "Sending long love messages"
-    ],
+    options: ["Giving space","Talking naughty","Flirting","Sending long love messages"],
     reward: "Because I mean it 💘"
   },
   {
     text: "27. What was your first impression of me?",
     type: "options",
-    options: [
-      "Timepass",
-      "Interesting",
-      "Too serious",
-      "Boring"
-    ],
+    options: ["Timepass","Interesting","Too serious","Boring"],
     reward: "First impressions evolve 😉"
   },
   {
     text: "28. When did you start feeling emotionally close to me?",
     type: "options",
-    options: [
-      "First chat",
-      "First flirt",
-      "After proposal",
-      "I'm still not attached"
-    ],
+    options: ["First chat","First flirt","After proposal","I'm still not attached"],
     reward: "Feelings grow 💞"
   },
   {
     text: "29. What kind of messages from me do you like most?",
     type: "options",
-    options: [
-      "Short ones",
-      "Long timepass",
-      "Nothing",
-      "Random love & naughty texts"
-    ],
+    options: ["Short ones","Long timepass","Nothing","Random love & naughty texts"],
     reward: "Noted carefully 😏"
   },
   {
     text: "30. What do you think I’m best at?",
     type: "options",
-    options: [
-      "Making you laugh",
-      "Loving you",
-      "Giving advice",
-      "Being dramatic"
-    ],
+    options: ["Making you laugh","Loving you","Giving advice","Being dramatic"],
     reward: "I’ll keep doing that 💕"
   },
   {
     text: "31. If we were on a long call, what would make you smile?",
     type: "options",
-    options: [
-      "Awkward silence",
-      "My laugh",
-      "Nothing",
-      "Flirting"
-    ],
+    options: ["Awkward silence","My laugh","Nothing","Flirting"],
     reward: "I can imagine that smile 😊"
   },
   {
     text: "32. What kind of compliment from me hits you hardest?",
     type: "options",
-    options: [
-      "About your beauty",
-      "About your body",
-      "About your voice",
-      "About your clothes"
-    ],
+    options: ["About your beauty","About your body","About your voice","About your clothes"],
     reward: "You deserve all of them 💗"
   },
   {
     text: "33. What do you think I notice about you first?",
     type: "options",
-    options: [
-      "Your yapping",
-      "Your mood",
-      "Your beauty",
-      "Your words"
-    ],
+    options: ["Your yapping","Your mood","Your beauty","Your words"],
     reward: "I notice everything 👀"
   },
   {
     text: "34. What kind of romance from me affects you the most?",
     type: "options",
-    options: [
-      "Direct touch",
-      "Little touch and loving looks",
-      "Talking naughty",
-      "No teasing only action"
-    ],
+    options: ["Direct touch","Little touch and loving looks","Talking naughty","No teasing only action"],
     reward: "That intensity is mutual 🔥"
   },
   {
     text: "35. What makes conversations with me feel intense sometimes?",
     type: "options",
-    options: [
-      "Long pauses",
-      "Emotional depth",
-      "Serious topics",
-      "Random jokes"
-    ],
+    options: ["Long pauses","Emotional depth","Serious topics","Random jokes"],
     reward: "That’s our thing 🖤"
   },
   {
     text: "36. What scares you a little about how close we are?",
     type: "options",
-    options: [
-      "Distance",
-      "Feelings getting deeper",
-      "Time difference",
-      "My love for you"
-    ],
+    options: ["Distance","Feelings getting deeper","Time difference","My love for you"],
     reward: "Some fears are worth it 💞"
   },
   {
     text: "37. What do you think I imagine when I think of you?",
     type: "options",
-    options: [
-      "Your smile",
-      "Your voice",
-      "Your messages",
-      "Your photos"
-    ],
+    options: ["Your smile","Your voice","Your messages","Your photos"],
     reward: "You’re always on my mind 💭"
   },
   {
     text: "38. If I went quiet suddenly, what would you assume?",
     type: "options",
-    options: [
-      "I’m bored",
-      "I’m angry",
-      "I’m thinking about you",
-      "I forgot"
-    ],
+    options: ["I’m bored","I’m angry","I’m thinking about you","I forgot"],
     reward: "Silence has meaning 🌙"
   },
   {
     text: "39. What do you think keeps us strong despite distance?",
     type: "options",
-    options: [
-      "Attraction",
-      "Communication",
-      "Habit",
-      "Curiosity"
-    ],
+    options: ["Attraction","Communication","Habit","Curiosity"],
     reward: "Whatever it is — it’s real 💕"
   },
   {
     text: "40. What do you believe I feel for you?",
     type: "options",
-    options: [
-      "Interest",
-      "Care",
-      "Something deeper",
-      "Curiosity"
-    ],
+    options: ["Interest","Care","Something deeper","Curiosity"],
     reward: "Some feelings go beyond words ❤️"
   },
   {
     text: "41. What do you think this game is really about?",
     type: "options",
-    options: [
-      "Winning rewards",
-      "Passing time",
-      "Proving something",
-      "Feeling close"
-    ],
+    options: ["Winning rewards","Passing time","Proving something","Feeling close"],
     reward: "You already know 💖"
   }
 ];
 
 const gifs = [
-  "assets/assets1.gif",
-  "assets/assets2.gif",
-  "assets/assets3.gif",
-  "assets/assets4.gif",
-  "assets/assets5.gif",
-  "assets/assets6.gif",
-  "assets/assets7.gif",
-  "assets/assets8.gif",
-  "assets/assets9.gif",
+  "assets/assets1.gif","assets/assets2.gif","assets/assets3.gif",
+  "assets/assets4.gif","assets/assets5.gif","assets/assets6.gif",
+  "assets/assets7.gif","assets/assets8.gif","assets/assets9.gif",
   "assets/assets10.gif"
 ];
 
-let index = 0;
+// ✅ RESTORE PROGRESS
+let index = Number(sessionStorage.getItem("quizIndex")) || 0;
 
 // ================= ELEMENTS =================
 const questionEl = document.getElementById("question");
@@ -350,48 +255,6 @@ const counterEl = document.getElementById("counter");
 const charCount = document.getElementById("charCount");
 const optionsBox = document.getElementById("optionsBox");
 const gifEl = document.getElementById("questionGif");
-
-// ================= FORBIDDEN WORDS =================
-const forbiddenPatterns = [
-  /\bidk\b/i, /\bdk\b/i, /\bi\s*don'?t\s*know\b/i, /\bdont\s*know\b/i,
-  /\bno\s*idea\b/i, /\bnot\s*sure\b/i, /\bcant\s*remember\b/i,
-  /\bdont\s*remember\b/i, /\bwhatever\b/i, /\banything\b/i,
-  /\bnahi\s*pata\b/i, /\bpata\s*nahi\b/i, /\byaad\s*nahi\b/i,
-  /\bkhabar\s*nathi\b/i, /\bmane\s*khabar\s*nathi\b/i,
-  /^h+m+$/i, /^u+m+$/i, /^m+$/i, /^ok+$/i, /^okay+$/i,
-  /^[^a-zA-Z]+$/
-];
-
-answerEl.addEventListener("input", () => {
-  let value = answerEl.value.replace(/[^a-zA-Z\s]/g, "");
-  answerEl.value = value;
-
-  const lengthOK = value.trim().length >= 10;
-  const hasForbidden = forbiddenPatterns.some(p => p.test(value.trim()));
-
-  charCount.textContent = value.length;
-  submitBtn.disabled = !(lengthOK && !hasForbidden);
-});
-
-// ================= 🌸 REALISTIC SAKURA PETALS =================
-const sakuraContainer = document.getElementById("sakura-container");
-
-if (sakuraContainer) {
-  setInterval(() => {
-    const petal = document.createElement("div");
-    petal.className = "sakura";
-    petal.style.left = Math.random() * 100 + "vw";
-
-    const drift = (Math.random() * 120 - 60).toFixed(0) + "px";
-    petal.style.setProperty("--drift", drift);
-    petal.style.setProperty("--fall-time", 10 + Math.random() * 10 + "s");
-    petal.style.setProperty("--sway-time", 3 + Math.random() * 3 + "s");
-    petal.style.setProperty("--spin-time", 6 + Math.random() * 6 + "s");
-
-    sakuraContainer.appendChild(petal);
-    setTimeout(() => petal.remove(), 20000);
-  }, 450);
-}
 
 // ================= LOAD QUESTION =================
 function loadQuestion() {
@@ -408,7 +271,6 @@ function loadQuestion() {
   submitBtn.disabled = true;
 
   if (q.type === "text") {
-    hintEl.textContent = "Write honestly (min 10 characters, English only)";
     hintEl.style.display = "block";
     answerEl.style.display = "block";
     counterEl.style.display = "block";
@@ -427,23 +289,17 @@ function loadQuestion() {
       btn.textContent = option;
 
       btn.onclick = () => {
-  collectedAnswers.push({
-    question: q.text,
-    answer: option
-  });
+        collectedAnswers.push({ question: q.text, answer: option });
+        sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
 
-  sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
+        rewardEl.textContent = q.reward;
 
-  rewardEl.textContent = q.reward;
-
-  setTimeout(() => {
-    index++;
-    index >= questions.length
-      ? finishQuiz()
-      : loadQuestion();
-  }, 700);
-};
-
+        setTimeout(() => {
+          index++;
+          sessionStorage.setItem("quizIndex", index);
+          index >= questions.length ? finishQuiz() : loadQuestion();
+        }, 700);
+      };
 
       optionsBox.appendChild(btn);
     });
@@ -451,45 +307,24 @@ function loadQuestion() {
 }
 
 // ================= SUBMIT TEXT ANSWER =================
-if (submitBtn) {
-  submitBtn.addEventListener("click", () => {
-    collectedAnswers.push({
-      question: questions[index].text,
-      answer: answerEl.value.trim()
-    });
+submitBtn.addEventListener("click", () => {
+  collectedAnswers.push({ question: questions[index].text, answer: answerEl.value.trim() });
+  sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
 
-    sessionStorage.setItem(
-      "quizAnswers",
-      JSON.stringify(collectedAnswers)
-    );
+  rewardEl.textContent = questions[index].reward;
 
-    rewardEl.textContent = questions[index].reward;
+  setTimeout(() => {
+    index++;
+    sessionStorage.setItem("quizIndex", index);
+    index >= questions.length ? finishQuiz() : loadQuestion();
+  }, 800);
+});
 
-    setTimeout(() => {
-      index++;
-
-      if (index >= questions.length) {
-        finishQuiz(); // ✅ THIS FIXES THE STUCK LAST MESSAGE
-      } else {
-        loadQuestion();
-      }
-    }, 800);
-  });
+// ================= FINISH QUIZ =================
+function finishQuiz() {
+  sessionStorage.removeItem("quizIndex");
+  window.location.href = "proposal.html";
 }
 
 // ✅ INIT
 loadQuestion();
-// ================= FINISH QUIZ =================
-function finishQuiz() {
-  const saved = sessionStorage.getItem("quizAnswers");
-  const encoded = btoa(saved);
-
-  // 🔐 Save answers link secretly (only you know this key)
-  localStorage.setItem(
-    "💌PRIVATE_ANSWERS_LINK💌",
-    "her-answers.html#data=" + encoded
-  );
-
-  // 👉 Redirect HER somewhere innocent
-  window.location.href = "proposal.html";
-}
