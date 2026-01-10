@@ -67,7 +67,7 @@ function saveAnswerSecretly(questionText, answerText) {
   };
 
   if (existingIndex !== -1) {
-    know existing answer
+    // update existing answer
     saved[existingIndex] = entry;
   } else {
     saved.push(entry);
@@ -80,39 +80,30 @@ function saveAnswerSecretly(questionText, answerText) {
 const sakuraContainer = document.getElementById("sakura-container");
 
 if (sakuraContainer) {
-  function createPetal() {
+  setInterval(() => {
     const petal = document.createElement("div");
     petal.className = "sakura";
-
     petal.style.left = Math.random() * 100 + "vw";
     petal.style.animationDuration = 10 + Math.random() * 10 + "s";
-    petal.style.animationDelay = Math.random() * 5 + "s";
-
     sakuraContainer.appendChild(petal);
     setTimeout(() => petal.remove(), 20000);
-  }
-
-  setInterval(createPetal, 500);
+  }, 500);
 }
 
 // ================= INPUT VALIDATION =================
 answerEl.addEventListener("input", () => {
   let value = answerEl.value.toLowerCase();
-
   value = value.replace(/[^a-z\s]/g, "");
 
   const words = value.trim().split(/\s+/);
   let validEnglishWords = 0;
 
   words.forEach(word => {
-    if (englishDictionary.has(word)) {
-      validEnglishWords++;
-    }
+    if (englishDictionary.has(word)) validEnglishWords++;
   });
 
   answerEl.value = value;
   charCount.textContent = value.length;
-
   submitBtn.disabled = !(value.length >= 15 && validEnglishWords >= 3);
 });
 
@@ -123,7 +114,6 @@ function loadQuestion() {
   questionEl.textContent = q.text;
   rewardEl.textContent = "";
   optionsBox.innerHTML = "";
-
   gifEl.src = gifs[Math.floor(Math.random() * gifs.length)];
 
   answerEl.value = "";
@@ -133,7 +123,6 @@ function loadQuestion() {
   if (q.type === "text") {
     hintEl.textContent = "Write honestly (min 15 characters, English only)";
     hintEl.style.display = "block";
-
     answerEl.style.display = "block";
     counterEl.style.display = "block";
     submitBtn.style.display = "inline-block";
@@ -156,11 +145,9 @@ function loadQuestion() {
 
         setTimeout(() => {
           index++;
-          if (index >= questions.length) {
-            window.location.href = "proposal.html";
-          } else {
-            loadQuestion();
-          }
+          index >= questions.length
+            ? window.location.href = "proposal.html"
+            : loadQuestion();
         }, 700);
       };
 
@@ -171,11 +158,7 @@ function loadQuestion() {
 
 // ================= SUBMIT TEXT ANSWER =================
 submitBtn.addEventListener("click", () => {
-  saveAnswerSecretly(
-    questions[index].text,
-    answerEl.value.trim()
-  );
-
+  saveAnswerSecretly(questions[index].text, answerEl.value.trim());
   rewardEl.textContent = questions[index].reward;
 
   setTimeout(() => {
