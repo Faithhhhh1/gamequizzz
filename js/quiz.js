@@ -8,6 +8,7 @@ const questions = [
     type: "text",
     reward: "Reading that made me smile ❤️"
   }
+  
 ];
 
 const gifs = [
@@ -33,11 +34,48 @@ const gifEl = document.getElementById("questionGif");
 
 // ================= FORBIDDEN WORDS =================
 const forbiddenPatterns = [
-  /\bidk\b/i, /\bdk\b/i, /\bi\s*don'?t\s*know\b/i, /\bdont\s*know\b/i,
-  /\bno\s*idea\b/i, /\bnot\s*sure\b/i, /\bcant\s*remember\b/i,
-  /\bdont\s*remember\b/i, /\bwhatever\b/i, /\banything\b/i,
-  /^[^a-zA-Z]+$/
+
+  // -------- ENGLISH --------
+  /\bidk\b/i,
+  /\bi\s*don'?t\s*know\b/i,
+  /\bdont\s*know\b/i,
+  /\bdo\s*not\s*know\b/i,
+  /\bno\s*idea\b/i,
+  /\bnot\s*sure\b/i,
+  /\bno\s*clue\b/i,
+  /\bwhatever\b/i,
+  /\banything\b/i,
+  /\bnothing\b/i,
+  /\bskip\b/i,
+  /\bpass\b/i,
+  /\blater\b/i,
+  /\bmaybe\b/i,
+
+  // -------- HINGLISH / HINDI (ROMAN) --------
+  /\bpata\s*nahi\b/i,
+  /\bpta\s*nahi\b/i,
+  /\bnahi\s*pata\b/i,
+  /\bnahi\s*pta\b/i,
+
+  /\byaad\s*nahi\b/i,   
+  /\bkuch\s*nahi\b/i,
+  /\bkuch\s*bhi\b/i,
+  /\bjo\s*bhi\b/i,
+  /\bjo\s*marzi\b/i,
+
+  // -------- GUJARATI (ROMAN) --------
+  /\bkhabar\s*nathi\b/i,
+  /\bkai\s*nathi\b/i,
+  /\bkasu\s*nathi\b/i,
+  /\bje\s*pan\b/i,
+  /\bje\s*hoi\b/i,
+  /\byaad\s*nathi\b/i,
+
+  // -------- EMPTY / ESCAPE INPUT --------
+  /^[^a-zA-Z]+$/,   // symbols / emojis only
+  /^.{0,2}$/        // too short
 ];
+
 
 // ✅ FIX (THIS WAS MISSING)
 answerEl.addEventListener("input", () => {
