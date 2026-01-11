@@ -60,7 +60,11 @@ function loadQuestion() {
   if (!q) return;
 
   questionEl.textContent = q.text;
-  rewardEl.textContent = "";
+rewardEl.textContent = "";
+rewardEl.classList.remove("show", "pulse");
+optionsBox.innerHTML = "";
+gifEl.src = gifs[Math.floor(Math.random() * gifs.length)];
+
   optionsBox.innerHTML = "";
   gifEl.src = gifs[Math.floor(Math.random() * gifs.length)];
 
@@ -91,13 +95,17 @@ function loadQuestion() {
         collectedAnswers.push({ question: q.text, answer: option });
         sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
 
-        rewardEl.textContent = q.reward;
-
         setTimeout(() => {
-          index++;
-          sessionStorage.setItem("quizIndex", index);
-          index >= questions.length ? finishQuiz() : loadQuestion();
-        }, 700);
+  rewardEl.textContent = q.reward;
+  rewardEl.classList.remove("show", "pulse"); // reset (safety)
+  rewardEl.classList.add("show", "pulse");   // play animation
+}, 400);
+
+setTimeout(() => {
+  index++;
+  sessionStorage.setItem("quizIndex", index);
+  index >= questions.length ? finishQuiz() : loadQuestion();
+}, 900);
       };
 
       optionsBox.appendChild(btn);
@@ -113,13 +121,18 @@ submitBtn.addEventListener("click", () => {
   });
 
   sessionStorage.setItem("quizAnswers", JSON.stringify(collectedAnswers));
-  rewardEl.textContent = questions[index].reward;
 
-  setTimeout(() => {
-    index++;
-    sessionStorage.setItem("quizIndex", index);
-    index >= questions.length ? finishQuiz() : loadQuestion();
-  }, 800);
+setTimeout(() => {
+  rewardEl.textContent = questions[index].reward;
+  rewardEl.classList.remove("show", "pulse"); // reset
+  rewardEl.classList.add("show", "pulse");   // animate
+}, 400);
+
+setTimeout(() => {
+  index++;
+  sessionStorage.setItem("quizIndex", index);
+  index >= questions.length ? finishQuiz() : loadQuestion();
+}, 1000);
 });
 
 // ================= FINISH QUIZ =================
@@ -131,7 +144,6 @@ function finishQuiz() {
 
   // clear progress index
   sessionStorage.removeItem("quizIndex");
-
   window.location.href = "proposal.html";
 }
 
