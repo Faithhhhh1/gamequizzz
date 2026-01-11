@@ -18,6 +18,14 @@
       margin-bottom: 20px;
     }
 
+    .card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
     .answer {
       background: rgba(255,255,255,0.08);
       border-radius: 14px;
@@ -41,74 +49,73 @@
       opacity: 0.7;
       margin-top: 40px;
     }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+    }
+
+    button {
+      background: #ff5f8a;
+      color: #fff;
+      cursor: pointer;
+    }
   </style>
 </head>
+
 <body>
+
+<!-- 🔒 LOCK SCREEN -->
 <div id="lockScreen" class="card">
   <h2>🔒 Private</h2>
   <p>This heart is protected ❤️</p>
 
-  <input
-    type="password"
-    id="passwordInput"
-    placeholder="Enter password"
-    style="padding:10px; width:100%; margin-top:10px;"
-  />
+  <input type="password" id="passwordInput" placeholder="Enter password" />
+  <button id="unlockBtn">Unlock 💖</button>
 
-  <button id="unlockBtn" class="btn-primary" style="margin-top:15px;">
-    Unlock 💖
-  </button>
-
-  <p id="errorMsg" style="color:#ff6b6b; display:none; margin-top:10px;">
-    sorry baby, it's for me.. 🥰
+  <p id="errorMsg" style="color:#ff6b6b; display:none;">
+    sorry baby, it's only for me 🥰
   </p>
 </div>
 
+<!-- 🔓 CONTENT -->
 <div id="content" style="display:none;">
-  <!-- answers will render here -->
-</div>
-
   <h1>💖 Her Heart 💖</h1>
   <div id="answers"></div>
+</div>
 
-  <script>
-  const PASSWORD = "youareonlymine"; // 🔐 change this
+<script>
+  const PASSWORD = "youareonlymine"; // 🔐 change if you want
 
   const lockScreen = document.getElementById("lockScreen");
   const content = document.getElementById("content");
   const unlockBtn = document.getElementById("unlockBtn");
   const passwordInput = document.getElementById("passwordInput");
   const errorMsg = document.getElementById("errorMsg");
+  const answersBox = document.getElementById("answers");
 
   unlockBtn.addEventListener("click", () => {
     if (passwordInput.value === PASSWORD) {
       lockScreen.style.display = "none";
       content.style.display = "block";
-      loadAnswers();
+      renderAnswers();
     } else {
       errorMsg.style.display = "block";
     }
   });
 
-  function loadAnswers() {
-    const hash = location.hash;
-    if (!hash.startsWith("#data=")) {
-      content.innerHTML = `
-        <div class="card">
-          😔 Nothing to show here.<br/>
-          This link is private.
-        </div>
-      `;
-      return;
-    }
-
+  function renderAnswers() {
     try {
-      const encoded = hash.replace("#data=", "");
-      const decoded = atob(encoded);
-      const data = JSON.parse(decoded);
+      const hash = location.hash;
+      if (!hash.startsWith("#data=")) throw new Error("No data");
 
-      const container = document.createElement("div");
-      container.className = "card";
+      const encoded = hash.replace("#data=", "");
+      const decoded = decodeURIComponent(atob(encoded));
+      const data = JSON.parse(decoded);
 
       data.forEach((item, i) => {
         const box = document.createElement("div");
@@ -117,20 +124,16 @@
           <div class="q">${i + 1}. ${item.question}</div>
           <div class="a">${item.answer}</div>
         `;
-        container.appendChild(box);
+        answersBox.appendChild(box);
       });
 
-      content.appendChild(container);
     } catch (e) {
-      content.innerHTML = `
-        <div class="card">
-          😔 Invalid or broken link.
-        </div>
+      answersBox.innerHTML = `
+        <div class="error">😔 Invalid or broken link.</div>
       `;
     }
   }
 </script>
-</body>
-  <!-- redeploy -->
 
+</body>
 </html>
